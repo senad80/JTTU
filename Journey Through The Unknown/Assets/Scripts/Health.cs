@@ -51,6 +51,7 @@ public class Health : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.H))
         {
             TakeDamage(10f);
+            Camerashake.Instance.Shake(0.5f, 0.2f,0.3f,10, 30f,Vector3.up);
         }
     }
 
