@@ -60,7 +60,7 @@ public class Health : MonoBehaviour
 
         health = Mathf.Clamp(health,0f,maxHealth);
 
-        Camerashake.Instance.Shake(intensity, Random.Range(0.1f,0.2f), randomness, 10, 30f, Vector3.up);
+        Camerashake.Instance.Shake(intensity, Random.Range(0.1f,0.2f), randomness, 10, 30f, Vector3.up,true);
 
         followDelay = followDelaySet;
         canFollow = false;

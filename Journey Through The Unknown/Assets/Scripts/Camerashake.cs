@@ -18,17 +18,22 @@ public class Camerashake : MonoBehaviour
 
     float speed;
 
-    public void Shake(float intensity, float duration, float randomness, float shakeTimes, float speed, Vector3 startingDirection)
+    public void Shake(float intensity, float duration, float randomness, float shakeTimes, float speed, Vector3 startingDirection, bool freezeTime)
     {
         if (!shaking)
-        StartCoroutine(ShakeCor(intensity,duration,randomness,shakeTimes,speed,startingDirection));
+        StartCoroutine(ShakeCor(intensity,duration,randomness,shakeTimes,speed,startingDirection,freezeTime));
     }
 
-    IEnumerator ShakeCor(float intensity, float duration, float randomness, float shakeTimes, float speed, Vector3 startingDirection)
+    IEnumerator ShakeCor(float intensity, float duration, float randomness, float shakeTimes, float speed, Vector3 startingDirection,bool freezeTime)
     {
         this.speed = speed;
 
         shaking = true;
+
+        if (freezeTime)
+        {
+            Time.timeScale = 0f;
+        }
 
         for (int i = 0; i < shakeTimes; i++)
         {
@@ -55,8 +60,10 @@ public class Camerashake : MonoBehaviour
 
                 destination.z = root.position.z;
             }
-            yield return new WaitForSeconds(duration / shakeTimes);
+            yield return new WaitForSecondsRealtime(duration / shakeTimes);
         }
+
+        Time.timeScale = 1f;
 
         shaking = false;
     }
@@ -65,11 +72,11 @@ public class Camerashake : MonoBehaviour
     {
         if (shaking)
         {
-            transform.position = Vector3.Lerp(transform.position, destination, speed * Time.deltaTime);
+            transform.position = Vector3.Lerp(transform.position, destination, speed * Time.unscaledDeltaTime);
         }
         else
         {
-            transform.position = Vector3.Lerp(transform.position, root.position, speed * Time.deltaTime);
+            transform.position = Vector3.Lerp(transform.position, root.position, speed * Time.unscaledDeltaTime);
         }
     }
 }
