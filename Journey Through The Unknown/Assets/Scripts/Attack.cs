@@ -31,7 +31,7 @@ public class Attack : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && canAttack)
         {
-            Camerashake.Instance.Shake(0.5f,0.2f,0.05f,10f,4f,transform.right);
+            Camerashake.Instance.Shake(0.3f,0.2f,0.05f,10f,4f,transform.right);
             StartCoroutine(AttackCor());   
         }
     }

@@ -50,16 +50,17 @@ public class Health : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.H))
         {
-            TakeDamage(10f);
-            Camerashake.Instance.Shake(0.3f, 0.2f,0.3f,10, 30f,Vector3.up);
+            TakeDamage(10f,0.3f, 0.3f);
         }
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(float damage, float intensity, float randomness)
     {
         health -= damage;
 
         health = Mathf.Clamp(health,0f,maxHealth);
+
+        Camerashake.Instance.Shake(intensity, Random.Range(0.1f,0.2f), randomness, 10, 30f, Vector3.up);
 
         followDelay = followDelaySet;
         canFollow = false;
