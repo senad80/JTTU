@@ -1115,7 +1115,7 @@ MonoBehaviour:
   slider: {fileID: 1883267386}
   followSlider: {fileID: 242817387}
   followDelaySet: 0.5
-  visualSpeed: 8
+  visualSpeed: 15
 --- !u!1 &1598141261
 GameObject:
   m_ObjectHideFlags: 0
