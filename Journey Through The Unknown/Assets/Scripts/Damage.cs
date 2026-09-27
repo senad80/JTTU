@@ -15,15 +15,25 @@ public class Damage : MonoBehaviour
         if (other.TryGetComponent<Health>(out health) && other.gameObject.CompareTag(damageTag))
         {
             health.TakeDamage(damage, 0.3f, 0.5f);
-
-            CharacterMotor motor;
-
-            if (other.TryGetComponent<CharacterMotor>(out motor))
-            {
-                Vector3 dir = (other.transform.position-transform.position).normalized;
-
-                motor.SetForce(dir,push);
-            }
         }
+
+        CharacterMotor motor;
+
+        if (other.TryGetComponent<CharacterMotor>(out motor) && other.gameObject.CompareTag(damageTag))
+        {
+            Vector3 dir = (other.transform.position - transform.position).normalized;
+
+            motor.SetForce(dir, push);
+        }
+
+        Attackable attack;
+
+        if (other.TryGetComponent<Attackable>(out attack))
+        {
+            attack.Act((other.transform.position-transform.position).normalized);
+        }
+
+        if (other.gameObject.CompareTag(damageTag))
+            Camerashake.Instance.Shake(0.3f, 0.2f, 0.3f, 10f, 30f, transform.up, true);
     }
 }

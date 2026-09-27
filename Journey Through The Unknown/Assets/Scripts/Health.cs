@@ -13,8 +13,6 @@ public class Health : MonoBehaviour
 
     public float visualSpeed;
 
-    public bool screenshake;
-
     float followDelay;
 
     float health;
@@ -63,9 +61,7 @@ public class Health : MonoBehaviour
         {
             isDead = true;
         }
-
-        if (screenshake)
-        Camerashake.Instance.Shake(intensity, Random.Range(0.1f,0.2f), randomness, 10, 30f, Vector3.up,true);
+        
 
         followDelay = followDelaySet;
         canFollow = false;

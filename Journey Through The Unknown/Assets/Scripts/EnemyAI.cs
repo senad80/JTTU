@@ -63,6 +63,11 @@ public class EnemyAI : Targeting
         }
     }
 
+    void OnDisable()
+    {
+        motor.Move(Vector3.zero, 0f);
+    }
+
     private void FindPath()
     {
         if (!target)
