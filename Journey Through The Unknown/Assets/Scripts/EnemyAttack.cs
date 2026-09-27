@@ -1,15 +1,11 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 
-public class Attack : MonoBehaviour
+public class EnemyAttack : MonoBehaviour
 {
     public GameObject attack;
 
-    public PlayerMovement movement;
-
     public CharacterMotor motor;
-
-    public MouseRotate rotate;
 
     public float dashAmount;
 
@@ -18,6 +14,8 @@ public class Attack : MonoBehaviour
     public float duration;
 
     public float cooldown;
+
+    public float attackRange;
 
     bool canAttack = true;
 
@@ -29,20 +27,18 @@ public class Attack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && canAttack)
+        if (Vector3.Distance(PlayerMovement.Instance.transform.position, transform.position) <= attackRange && canAttack)
         {
             //Camerashake.Instance.Shake(0.3f,0.2f,0.05f,10f,4f,transform.right, false);
-            StartCoroutine(AttackCor());   
+            StartCoroutine(AttackCor());
         }
     }
 
     IEnumerator AttackCor()
     {
         canAttack = false;
-        movement.enabled = false;
-        rotate.enabled = false;
         motor.Move(Vector3.zero, 0f);
-        motor.SetForce(transform.right,dashAmount);
+        motor.SetForce(transform.right, dashAmount);
 
         yield return new WaitForSeconds(delay);
 
@@ -51,8 +47,6 @@ public class Attack : MonoBehaviour
         yield return new WaitForSeconds(duration);
 
         attack.SetActive(false);
-        rotate.enabled = true;
-        movement.enabled = true;
 
         yield return new WaitForSeconds(cooldown);
 

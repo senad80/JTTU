@@ -2,6 +2,13 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public static PlayerMovement Instance;
+
+    void Awake()
+    {
+        Instance = this;
+    }
+
     public CharacterMotor motor;
 
     public float speed;

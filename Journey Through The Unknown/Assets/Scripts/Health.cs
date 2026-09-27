@@ -13,6 +13,8 @@ public class Health : MonoBehaviour
 
     public float visualSpeed;
 
+    public bool screenshake;
+
     float followDelay;
 
     float health;
@@ -47,11 +49,6 @@ public class Health : MonoBehaviour
                 canFollow = true;
             }
         }
-
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            TakeDamage(10f,0.3f, 0.3f);
-        }
     }
 
     public void TakeDamage(float damage, float intensity, float randomness)
@@ -60,6 +57,7 @@ public class Health : MonoBehaviour
 
         health = Mathf.Clamp(health,0f,maxHealth);
 
+        if (screenshake)
         Camerashake.Instance.Shake(intensity, Random.Range(0.1f,0.2f), randomness, 10, 30f, Vector3.up,true);
 
         followDelay = followDelaySet;

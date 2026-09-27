@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 public class CharacterMotor : MonoBehaviour
@@ -27,20 +28,38 @@ public class CharacterMotor : MonoBehaviour
         {
             Vector3 horizontal = new Vector3(final.x, 0f, 0f);
 
-            if (Physics2D.OverlapBox(transform.position+horizontal+horizontal.normalized*addDistance
-                ,new Vector2(size.x,size.y-removeCollider),0,wallMask))
+            Collider2D[] hor = Physics2D.OverlapBoxAll(transform.position + horizontal + horizontal.normalized * addDistance
+                , new Vector2(size.x, size.y - removeCollider), 0, wallMask);
+
+            if ( hor.Length > 0)
             {
-                horizontal = Vector3.zero;
+                foreach (Collider2D col in hor)
+                {
+                    if (col.gameObject != gameObject)
+                    {
+                        horizontal = Vector3.zero;
+                        break;
+                    }
+                }
             }
 
             transform.position += horizontal;
 
             Vector3 vertical = new Vector3(0f,final.y,0f);
 
-            if (Physics2D.OverlapBox(transform.position + vertical + vertical.normalized * addDistance, 
-                new Vector2(size.x - removeCollider, size.y), 0, wallMask))
+            Collider2D[] ver = Physics2D.OverlapBoxAll(transform.position + vertical + vertical.normalized * addDistance,
+                new Vector2(size.x - removeCollider, size.y), 0, wallMask);
+
+            if (ver.Length > 0)
             {
-                vertical = Vector3.zero;
+                foreach (Collider2D col in ver)
+                {
+                    if (col.gameObject != gameObject)
+                    {
+                        vertical = Vector3.zero;
+                        break;
+                    }
+                }
             }
 
             transform.position += vertical;
