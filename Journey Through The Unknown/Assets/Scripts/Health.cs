@@ -21,6 +21,8 @@ public class Health : MonoBehaviour
 
     bool canFollow;
 
+    bool isDead;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -57,10 +59,20 @@ public class Health : MonoBehaviour
 
         health = Mathf.Clamp(health,0f,maxHealth);
 
+        if (health <= 0)
+        {
+            isDead = true;
+        }
+
         if (screenshake)
         Camerashake.Instance.Shake(intensity, Random.Range(0.1f,0.2f), randomness, 10, 30f, Vector3.up,true);
 
         followDelay = followDelaySet;
         canFollow = false;
+    }
+
+    public bool IsDead()
+    {
+        return isDead;
     }
 }

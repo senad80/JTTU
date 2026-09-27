@@ -7,6 +7,8 @@ public class EnemyAttack : MonoBehaviour
 
     public CharacterMotor motor;
 
+    public EnemyAI ai;
+
     public float dashAmount;
 
     public float delay;
@@ -34,10 +36,16 @@ public class EnemyAttack : MonoBehaviour
         }
     }
 
+    void OnDisabled()
+    {
+        attack.SetActive(false);
+    }
+
     IEnumerator AttackCor()
     {
         canAttack = false;
         motor.Move(Vector3.zero, 0f);
+        ai.canMove = false;
         motor.SetForce(transform.right, dashAmount);
 
         yield return new WaitForSeconds(delay);
@@ -47,6 +55,7 @@ public class EnemyAttack : MonoBehaviour
         yield return new WaitForSeconds(duration);
 
         attack.SetActive(false);
+        ai.canMove = true;
 
         yield return new WaitForSeconds(cooldown);
 
