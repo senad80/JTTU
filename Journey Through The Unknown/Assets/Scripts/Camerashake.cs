@@ -20,7 +20,7 @@ public class Camerashake : MonoBehaviour
 
     public void Shake(float intensity, float duration, float randomness, float shakeTimes, float speed, Vector3 startingDirection, bool freezeTime)
     {
-        if (!shaking)
+        if (!shaking || freezeTime == true)
         StartCoroutine(ShakeCor(intensity,duration,randomness,shakeTimes,speed,startingDirection,freezeTime));
     }
 

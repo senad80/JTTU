@@ -29,7 +29,7 @@ public class EnemyAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Vector3.Distance(PlayerMovement.Instance.transform.position, transform.position) <= attackRange && canAttack)
+        if (Vector3.Distance(PlayerMovement.Instance.transform.position, transform.position) <= attackRange && canAttack && ai.target != null)
         {
             //Camerashake.Instance.Shake(0.3f,0.2f,0.05f,10f,4f,transform.right, false);
             StartCoroutine(AttackCor());
