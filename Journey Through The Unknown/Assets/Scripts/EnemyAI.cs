@@ -1,11 +1,9 @@
 using UnityEngine;
 using Pathfinding;
 
-public class EnemyAI : MonoBehaviour
+public class EnemyAI : Targeting
 {
     public CharacterMotor motor;
-
-    [SerializeField] private Transform target;
     [SerializeField] private float speed = 3f;
     [SerializeField] private float waypointDistance = 0.2f;
 
@@ -67,6 +65,9 @@ public class EnemyAI : MonoBehaviour
 
     private void FindPath()
     {
+        if (!target)
+            return;
+
         seeker.StartPath(
             transform.position,
             target.position,
