@@ -37,6 +37,6 @@ public class Damage : MonoBehaviour
         }
 
         if (damageTag.Contains(other.gameObject.tag) && other.transform != safe)
-            Camerashake.Instance.Shake(0.3f, 0.2f, 0.3f, 10f, 30f, transform.up, false);
+            Camerashake.Instance.Shake(0.3f, 0.2f, 0.3f, 10f, 30f, (other.transform.position - transform.position).normalized, false);
     }
 }

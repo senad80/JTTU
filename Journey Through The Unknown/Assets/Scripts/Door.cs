@@ -10,6 +10,8 @@ public class Door : Attackable
 
     public bool right;
 
+    public GameObject fog;
+
     public override void Act(Vector3 dir)
     {
         if (right)
@@ -22,6 +24,9 @@ public class Door : Attackable
         }
 
         anim.SetBool("Open", true);
+
+        if (fog != null)
+            fog.SetActive(false);
     }
 
     void OnTriggerExit2D(Collider2D other)

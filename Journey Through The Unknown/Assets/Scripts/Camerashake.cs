@@ -7,10 +7,21 @@ public class Camerashake : MonoBehaviour
 
     void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject.transform.parent.gameObject);
+            return;
+        }
+
         Instance = this;
+        DontDestroyOnLoad(gameObject);
+
+        Shake(0.3f, 0.2f, 0.3f, 10f, 30f, Vector3.up, false);
     }
 
     public Transform root;
+
+    public CameraFollow cameraFollow;
 
     Vector3 destination;
 
@@ -21,14 +32,20 @@ public class Camerashake : MonoBehaviour
     public void Shake(float intensity, float duration, float randomness, float shakeTimes, float speed, Vector3 startingDirection, bool freezeTime)
     {
         if (!shaking || freezeTime == true)
-        StartCoroutine(ShakeCor(intensity,duration,randomness,shakeTimes,speed,startingDirection,freezeTime));
+        {
+            StartCoroutine(ShakeCor(intensity, duration, randomness, shakeTimes, speed, startingDirection, freezeTime));
+        }
     }
 
     IEnumerator ShakeCor(float intensity, float duration, float randomness, float shakeTimes, float speed, Vector3 startingDirection,bool freezeTime)
     {
+        destination = root.position;
+
         this.speed = speed;
 
         shaking = true;
+
+        cameraFollow.enabled = false;
 
         if (freezeTime)
         {
@@ -77,6 +94,11 @@ public class Camerashake : MonoBehaviour
         else
         {
             transform.position = Vector3.Lerp(transform.position, root.position, speed * Time.unscaledDeltaTime);
+
+            if (Vector3.Distance(transform.position,root.position) <= 0.5f)
+            {
+                cameraFollow.enabled = true;
+            }
         }
     }
 }

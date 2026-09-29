@@ -206,6 +206,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 824e76ec973e0b9448ad4b9d1be5f0f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  rotation: {x: 0, y: 0, z: 0, w: 0}
+  rotationNeeded: 0
 --- !u!1 &2078948760601251053
 GameObject:
   m_ObjectHideFlags: 0
@@ -284,6 +286,8 @@ MonoBehaviour:
   followSlider: {fileID: 3761709111986137613}
   followDelaySet: 0.5
   visualSpeed: 15
+  screenshake: 0
+  hitIndicator: {fileID: 0}
 --- !u!58 &2341351611164898415
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -877,9 +881,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4073d48b790073544931c25fda369b46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Damage
-  damageTag: Player
+  damageTag:
+  - Player
+  - Enemy
   damage: 15
   push: 60
+  safe: {fileID: 0}
 --- !u!1 &7398669760387071832
 GameObject:
   m_ObjectHideFlags: 0
